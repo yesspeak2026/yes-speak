@@ -60,8 +60,9 @@ if page == "🏠 Home":
         # Save selected mission
         st.session_state.selected_mission = today_mission
 
-        # Start a fresh chat
-        st.session_state.messages = []
+        # Start a fresh chat with the mission opening
+        st.session_state.messages = [{ "role": "assistant", "content": 
+                                      today_mission["opening_message"]}]
 
         st.success(f"Mission selected: {today_mission['name']}")
 
@@ -97,7 +98,11 @@ elif page == "💬 AI Chat":
 
     if st.session_state.selected_mission:
         st.info(f"Current Mission: {st.session_state.selected_mission['name']}")
-
+        st.write("Selected Mission:",
+        st.session_state.selected_mission)
+        st.write("Messages:",
+        st.session_state.messages)
+        
     for message in st.session_state.messages:
         with st.chat_message(message["role"]):
             st.write(message["content"])
